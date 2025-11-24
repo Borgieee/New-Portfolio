@@ -31,8 +31,10 @@
                 <button class="filter-btn" data-filter="worksheets">Worksheets</button>
                 <button class="filter-btn" data-filter="school">School Tasks</button>
                 <button class="filter-btn" data-filter="personal">Personal Works</button>
+                <button class="filter-btn" data-filter="kayumutiara">Kayumutiara</button>
             </div>
             <div class="projects-grid">
+
                 <div class="project-card" data-category="worksheets">
                     <div class="about-img" style="background-image: url('Pics/Manghuhula.png')"></div>
                     <div class="project-info">
@@ -44,14 +46,23 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card" data-category="worksheets">
-                    <div class="project-img" style="background-image: url('Pics/Philo.png')"></div>
-                    <div class="project-info">
-                        <h3>Philosopy Short Video Project (I-it and I-thou moments)</h3>
-                        <p>Url:https://youtube.com/shorts/b9mE1datukM?feature=share</p>
-                    </div>
-                </div>
+
+                <div class="project-card video-card" data-category="school" data-video="Vids/Manghuhula.mp4">
+    <div class="Pics/Manghuhula.png" style="background-image: url('Pics/Manghuhula.png')">
+        <div class="play-overlay">
+            <i class="fas fa-play play-icon"></i>
+        </div>
+    </div>
+    <div class="project-info">
+        <h3>Philosopy Short Video Project (I-it and I-thou moments)<span class="video-tag">VIDEO</span></h3>
+        <p></p>
+        <div class="project-tags">
+            <div class="project-tag">MP4</div>
+            <div class="project-tag"></div>
+            <div class="project-tag"></div>
+        </div>
+    </div>
+</div>
                 
                 <div class="project-card" data-category="worksheets">
                     <div class="project-img" style="background-image: url('Pics/MPNNN&PA.png')"></div>
@@ -115,10 +126,86 @@
                     </div>
                 </div>
                 
-                <div class="project-card" data-category="personal">
-                    <div class="project-img" style="background-image: url('')"></div>
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Mood Board.png')"></div>
+                    <div class="project-img" style="background-image: url('Pics/Color pallete.jpg')"></div>
+                    <div class="project-img" style="background-image: url('Pics/AI generated poster draft.jpg')"></div>
+                    <div class="project-img" style="background-image: url('Pics/Conceptualization.jpg')"></div>
                     <div class="project-info">
-                        <h3></h3>
+                        <h3>Week 10</h3>
+                        <p>1st conceptualization of the poster and other design elements.</p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Poster_Draft.png')"></div>
+                    <div class="project-img" style="background-image: url('Pics/Poster_Draft2.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 11</h3>
+                        <p>1st Poster draft</p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Revised poster.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 12</h3>
+                        <p>1st Poster draft revisions</p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Prinsesang Mariposa _ Main Poster.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 13</h3>
+                        <p></p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Prinsesang Mariposa _ Main Poster.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 13</h3>
+                        <p></p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Prinsesang Mariposa _ Main Poster.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 13</h3>
+                        <p></p>
+                        <div class="project-tags">
+                            <div class="project-tag"></div>
+                            <div class="project-tag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="kayumutiara">
+                    <div class="project-img" style="background-image: url('Pics/Prinsesang Mariposa _ Main Poster.png')"></div>
+                    <div class="project-info">
+                        <h3>Week 13</h3>
                         <p></p>
                         <div class="project-tags">
                             <div class="project-tag"></div>
@@ -129,6 +216,15 @@
             </div>
         </div>
     </div>
+
+    <div class="video-modal" id="videoModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <video controls id="modalVideo">
+            <!-- Video source will be set by JavaScript -->
+        </video>
+    </div>
+</div>
 
     <div class="footer">
         <div class="container">
