@@ -180,6 +180,16 @@ body {
     background: #ecf0f1;
 }
 
+/* ------------------------------------------------ */
+/* PURE CSS FILTERING - START OF NEW/MODIFIED RULES */
+/* ------------------------------------------------ */
+
+/* 1. Hide the radio buttons (REQUIRED for pure CSS method) */
+.filters-container input[type="radio"] {
+    display: none;
+}
+
+/* 2. Style for filter labels (replaces old .filter-btn styling) */
 .filters {
     display: flex;
     justify-content: center;
@@ -188,26 +198,119 @@ body {
     margin-bottom: 40px;
 }
 
-.filter-btn {
+.filters label.filter-btn {
     background: white;
     border: 1px solid #bdc3c7;
     padding: 8px 20px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
+    user-select: none;
 }
 
-.filter-btn.active, .filter-btn:hover {
+/* 3. Style the ACTIVE button (when its linked radio is :checked) */
+/* Replaces .filter-btn.active and .filter-btn:hover styles */
+#filter-all:checked ~ .filters label[for="filter-all"],
+#filter-worksheets:checked ~ .filters label[for="filter-worksheets"],
+#filter-school:checked ~ .filters label[for="filter-school"],
+#filter-personal:checked ~ .filters label[for="filter-personal"],
+#filter-kayumutiara:checked ~ .filters label[for="filter-kayumutiara"] {
     background: #3498db;
     color: white;
     border-color: #3498db;
 }
+
+/* 4. Kayumutiara Intro Header Styling and Hiding (New Element) */
+#kayumutiara-intro {
+    display: none; /* HIDE BY DEFAULT */
+    margin-bottom: 25px; 
+    padding: 20px;
+    background-color: #ffffff;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    /* grid-column: 1 / -1; *//* Span full width if parent container is a grid */
+}
+
+#kayumutiara-intro header h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#kayumutiara-intro .intro-body {
+    display: flex; /* Layout for image and text */
+    gap: 20px;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+#kayumutiara-intro .category-intro-image {
+    flex-shrink: 0;
+    width: 200px; 
+    height: 150px; 
+    border-radius: 8px;
+    background-size: contain; /* Ensures the image is fully visible */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f8f8f8;
+}
+
+#kayumutiara-intro .intro-text p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* 5. Project Grid and Card Filtering Rules */
 
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
+
+/* Hide all cards by default */
+.projects-grid .project-card {
+    display: none;
+}
+
+/* SHOW: All Projects (Shows all cards) */
+#filter-all:checked ~ .projects-grid .project-card {
+    display: block; 
+}
+
+/* SHOW: Worksheets */
+#filter-worksheets:checked ~ .projects-grid .project-card[data-category="worksheets"] {
+    display: block;
+}
+
+/* SHOW: School Tasks */
+#filter-school:checked ~ .projects-grid .project-card[data-category="school"] {
+    display: block;
+}
+
+/* SHOW: Personal Works */
+#filter-personal:checked ~ .projects-grid .project-card[data-category="personal"] {
+    display: block;
+}
+
+/* SHOW: Kayumutiara */
+#filter-kayumutiara:checked ~ .projects-grid .project-card[data-category="kayumutiara"] {
+    display: block;
+}
+
+/* EXCLUSIVE VISIBILITY: Show Kayumutiara Intro ONLY when its radio is checked */
+#filter-kayumutiara:checked ~ #kayumutiara-intro {
+    display: block; 
+}
+/* ------------------------------------------------ */
+/* PURE CSS FILTERING - END OF NEW/MODIFIED RULES */
+/* ------------------------------------------------ */
+
 
 .project-card {
     background: white;
@@ -224,8 +327,9 @@ body {
 .project-img {
     height: 200px;
     background: #3498db;
-    background-size: cover;
+    background-size: contain; /* Now using 'contain' for full image */
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .project-info {
@@ -360,6 +464,7 @@ body {
     margin-top: 40px;
 }
 
+/* --- MEDIA QUERIES --- */
 @media (max-width: 900px) {
     .projects-grid, .featured-projects {
         grid-template-columns: repeat(2, 1fr);
@@ -371,6 +476,12 @@ body {
     
     .about-img {
         width: 100%;
+    }
+    
+    #kayumutiara-intro .intro-body {
+        flex-direction: column; 
+        align-items: center;
+        text-align: center;
     }
 }
 
@@ -399,8 +510,11 @@ body {
         flex-direction: column;
         align-items: center;
     }
+    
+    /* Removed redundant video-card styles that were duplicated here */
+}
 
-    .project-card.video-card {
+.project-card.video-card {
     cursor: pointer;
     position: relative;
 }
@@ -500,5 +614,4 @@ body {
 
 .simple-video-card .project-info {
     padding: 20px;
-}
 }
