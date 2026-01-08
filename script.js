@@ -98,5 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize video modal
     initVideoModal();
+    
 });
+
+
 });

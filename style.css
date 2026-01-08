@@ -615,3 +615,15 @@ body {
 .simple-video-card .project-info {
     padding: 20px;
 }
+
+.project-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.project-card-link:hover .project-card {
+    /* Add hover effect if desired */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
