@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - UPDATED VERSION */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -180,16 +180,16 @@ body {
     background: #ecf0f1;
 }
 
-/* ------------------------------------------------ */
-/* PURE CSS FILTERING - START OF NEW/MODIFIED RULES */
-/* ------------------------------------------------ */
+/* ================================================ */
+/* UPDATED FILTERING SYSTEM */
+/* ================================================ */
 
-/* 1. Hide the radio buttons (REQUIRED for pure CSS method) */
+/* Hide the radio buttons */
 .filters-container input[type="radio"] {
     display: none;
 }
 
-/* 2. Style for filter labels (replaces old .filter-btn styling) */
+/* Style filter buttons */
 .filters {
     display: flex;
     justify-content: center;
@@ -208,8 +208,7 @@ body {
     user-select: none;
 }
 
-/* 3. Style the ACTIVE button (when its linked radio is :checked) */
-/* Replaces .filter-btn.active and .filter-btn:hover styles */
+/* Active filter button styles */
 #filter-all:checked ~ .filters label[for="filter-all"],
 #filter-worksheets:checked ~ .filters label[for="filter-worksheets"],
 #filter-school:checked ~ .filters label[for="filter-school"],
@@ -220,16 +219,15 @@ body {
     border-color: #3498db;
 }
 
-/* 4. Kayumutiara Intro Header Styling and Hiding (New Element) */
+/* Kayumutiara Intro */
 #kayumutiara-intro {
-    display: none; /* HIDE BY DEFAULT */
+    display: none;
     margin-bottom: 25px; 
     padding: 20px;
     background-color: #ffffff;
     border-left: 5px solid #3498db;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    /* grid-column: 1 / -1; *//* Span full width if parent container is a grid */
 }
 
 #kayumutiara-intro header h3 {
@@ -242,7 +240,7 @@ body {
 }
 
 #kayumutiara-intro .intro-body {
-    display: flex; /* Layout for image and text */
+    display: flex;
     gap: 20px;
     align-items: flex-start;
     padding-top: 10px;
@@ -253,7 +251,7 @@ body {
     width: 200px; 
     height: 150px; 
     border-radius: 8px;
-    background-size: contain; /* Ensures the image is fully visible */
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #f8f8f8;
@@ -265,71 +263,131 @@ body {
     color: #555;
 }
 
-/* 5. Project Grid and Card Filtering Rules */
-
+/* Project grid layout */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
-/* Hide all cards by default */
-.projects-grid .project-card {
-    display: none;
+/* IMPORTANT: Show ALL containers by default */
+.projects-grid .project-card-container {
+    display: block !important;
 }
 
-/* SHOW: All Projects (Shows all cards) */
-#filter-all:checked ~ .projects-grid .project-card {
-    display: block; 
+/* Filtering - hide containers based on radio button selection */
+/* When specific filter is selected, hide non-matching containers */
+#filter-all:checked ~ .projects-grid .project-card-container {
+    display: block !important;
 }
 
-/* SHOW: Worksheets */
-#filter-worksheets:checked ~ .projects-grid .project-card[data-category="worksheets"] {
-    display: block;
+#filter-worksheets:checked ~ .projects-grid .project-card-container:not([data-category="worksheets"]) {
+    display: none !important;
 }
 
-/* SHOW: School Tasks */
-#filter-school:checked ~ .projects-grid .project-card[data-category="school"] {
-    display: block;
+#filter-school:checked ~ .projects-grid .project-card-container:not([data-category="school"]) {
+    display: none !important;
 }
 
-/* SHOW: Personal Works */
-#filter-personal:checked ~ .projects-grid .project-card[data-category="personal"] {
-    display: block;
+#filter-personal:checked ~ .projects-grid .project-card-container:not([data-category="personal"]) {
+    display: none !important;
 }
 
-/* SHOW: Kayumutiara */
-#filter-kayumutiara:checked ~ .projects-grid .project-card[data-category="kayumutiara"] {
-    display: block;
+#filter-kayumutiara:checked ~ .projects-grid .project-card-container:not([data-category="kayumutiara"]) {
+    display: none !important;
 }
 
-/* EXCLUSIVE VISIBILITY: Show Kayumutiara Intro ONLY when its radio is checked */
 #filter-kayumutiara:checked ~ #kayumutiara-intro {
     display: block; 
 }
-/* ------------------------------------------------ */
-/* PURE CSS FILTERING - END OF NEW/MODIFIED RULES */
-/* ------------------------------------------------ */
 
+/* ================================================ */
+/* CLICKABLE CARD STYLES */
+/* ================================================ */
 
+/* Make containers with links clickable */
+.project-card-container[data-link] {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s;
+}
+
+/* Hover effect for containers with links */
+.project-card-container[data-link]:hover {
+    transform: translateY(-5px);
+}
+
+.project-card-container[data-link]:hover .project-card {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Containers without links should not be clickable */
+.project-card-container:not([data-link]) {
+    cursor: default;
+}
+
+.project-card-container:not([data-link]):hover {
+    transform: none;
+}
+
+.project-card-container:not([data-link]):hover .project-card {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Video card specific */
+.video-card-container {
+    cursor: pointer;
+}
+
+.video-card-container:hover .project-card.video-card .play-overlay {
+    opacity: 1;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(52, 152, 219, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}
+
+.play-icon {
+    color: white;
+    font-size: 60px;
+    cursor: pointer;
+}
+
+/* Project card base styles */
 .project-card {
     background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    transition: box-shadow 0.3s;
+    height: 100%;
 }
 
+/* Remove old hover effect from .project-card itself */
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: none;
 }
 
 .project-img {
     height: 200px;
     background: #3498db;
-    background-size: contain; /* Now using 'contain' for full image */
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .project-info {
@@ -355,6 +413,65 @@ body {
     font-size: 12px;
     border: 1px solid #bdc3c7;
 }
+
+.video-tag {
+    display: inline-block;
+    background: #e74c3c;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+/* ================================================ */
+/* VIDEO MODAL */
+/* ================================================ */
+
+.video-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-content video {
+    width: 800px;
+    height: 450px;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* ================================================ */
+/* REST OF STYLES */
+/* ================================================ */
 
 .contact {
     text-align: center;
@@ -510,120 +627,86 @@ body {
         flex-direction: column;
         align-items: center;
     }
-    
-    /* Removed redundant video-card styles that were duplicated here */
 }
 
-.project-card.video-card {
-    cursor: pointer;
-    position: relative;
-}
-
-.project-card.video-card:hover .play-overlay {
-    opacity: 1;
-}
-
-.video-thumbnail {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
+/* Force play button to be clickable */
 .play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(52, 152, 219, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+}
+
+.play-overlay * {
+    cursor: pointer !important;
+    pointer-events: auto !important;
 }
 
 .play-icon {
-    color: white;
-    font-size: 60px;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    z-index: 101 !important;
 }
 
-/* Video Modal */
-.video-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-
-.video-modal.active {
-    display: flex;
-}
-
-.modal-content {
+/* Make sure video container handles clicks properly */
+.video-card-container {
     position: relative;
-    max-width: 90%;
-    max-height: 90%;
 }
 
-.modal-content video {
-    width: 800px;
-    height: 450px;
-    max-width: 90vw;
-    max-height: 90vh;
+.video-card-container .project-card.video-card {
+    pointer-events: none; /* Let container handle clicks */
 }
 
-.close-modal {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    background: none;
-    border: none;
+.video-card-container .project-card.video-card .play-overlay {
+    pointer-events: auto !important; /* But play button should work */
 }
 
-.video-tag {
-    display: inline-block;
-    background: #e74c3c;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 10px;
-    margin-left: 5px;
+/* Emergency override for any conflicting styles */
+.project-card-container[data-link].video-card-container {
+    cursor: pointer !important;
 }
 
-.simple-video-card {
-    cursor: pointer;
+.project-card-container[data-link].video-card-container .play-overlay:hover {
+    opacity: 1 !important;
 }
 
-.simple-video-card video {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
+/* Force video modal to be visible */
+.video-modal.active {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-.simple-video-card .project-info {
-    padding: 20px;
+/* Make sure play button is SUPER clickable */
+.play-overlay,
+.play-overlay *,
+.play-icon,
+.fa-play {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    z-index: 1000 !important;
 }
 
-.project-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+/* Remove any conflicting pointer-events */
+.video-card-container .project-card.video-card {
+    pointer-events: none !important;
 }
 
-.project-card-link:hover .project-card {
-    /* Add hover effect if desired */
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+.video-card-container .project-card.video-card .play-overlay,
+.video-card-container .project-card.video-card .play-overlay * {
+    pointer-events: auto !important !important;
 }
+
+/* Emergency modal styles */
+#videoModal {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    z-index: 999999 !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
