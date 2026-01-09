@@ -270,6 +270,9 @@ body {
     gap: 30px;
 }
 
+/* GRID FIX - prevents cards from breaking layout */
+.projects-grid > * { grid-column: span 1 !important; grid-row: span 1 !important; }
+
 /* IMPORTANT: Show ALL containers by default */
 .projects-grid .project-card-container {
     display: block !important;
@@ -311,16 +314,18 @@ body {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: transform 0.3s;
+    /* NO transition or transform here - this was breaking grid */
 }
 
-/* Hover effect for containers with links */
-.project-card-container[data-link]:hover {
-    transform: translateY(-5px);
-}
-
+/* Hover effect - MOVED TO INNER CARD ONLY */
 .project-card-container[data-link]:hover .project-card {
+    transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* NO transform on container hover - THIS WAS THE PROBLEM */
+.project-card-container[data-link]:hover {
+    transform: none !important;
 }
 
 /* Containers without links should not be clickable */
@@ -372,13 +377,13 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s; /* ADDED transform */
     height: 100%;
 }
 
-/* Remove old hover effect from .project-card itself */
-.project-card:hover {
-    transform: none;
+/* Cards get transform from container hover, not their own */
+.project-card {
+    /* transform is already handled in .project-card-container[data-link]:hover .project-card */
 }
 
 .project-img {
@@ -414,299 +419,4 @@ body {
     border: 1px solid #bdc3c7;
 }
 
-.video-tag {
-    display: inline-block;
-    background: #e74c3c;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 10px;
-    margin-left: 5px;
-}
-
-/* ================================================ */
-/* VIDEO MODAL */
-/* ================================================ */
-
-.video-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-
-.video-modal.active {
-    display: flex;
-}
-
-.modal-content {
-    position: relative;
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.modal-content video {
-    width: 800px;
-    height: 450px;
-    max-width: 90vw;
-    max-height: 90vh;
-}
-
-.close-modal {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    background: none;
-    border: none;
-}
-
-/* ================================================ */
-/* REST OF STYLES */
-/* ================================================ */
-
-.contact {
-    text-align: center;
-}
-
-.contact-info h3 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 30px;
-}
-
-.contact-details {
-    margin-bottom: 30px;
-}
-
-.contact-details p {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-
-.contact-details i {
-    margin-right: 10px;
-    color: #3498db;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: #2c3e50;
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.social-links a:hover {
-    background: #3498db;
-}
-
-.footer {
-    background: #2c3e50;
-    color: white;
-    padding: 50px 0 20px;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.footer-column h3 {
-    margin-bottom: 20px;
-    color: #3498db;
-}
-
-.footer-column p {
-    margin-bottom: 10px;
-}
-
-.footer-column a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-column a:hover {
-    color: #3498db;
-}
-
-.copyright {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.home-intro {
-    text-align: center;
-    padding: 40px 0;
-}
-
-.home-intro h2 {
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-.featured-projects {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.quick-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
-}
-
-/* --- MEDIA QUERIES --- */
-@media (max-width: 900px) {
-    .projects-grid, .featured-projects {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .about-content {
-        flex-direction: column;
-    }
-    
-    .about-img {
-        width: 100%;
-    }
-    
-    #kayumutiara-intro .intro-body {
-        flex-direction: column; 
-        align-items: center;
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .menu-icon {
-        display: block;
-    }
-    
-    .hero h1 {
-        font-size: 32px;
-    }
-    
-    .projects-grid, .featured-projects {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .quick-links {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Force play button to be clickable */
-.play-overlay {
-    cursor: pointer !important;
-    z-index: 100 !important;
-    pointer-events: auto !important;
-}
-
-.play-overlay * {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-}
-
-.play-icon {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-    z-index: 101 !important;
-}
-
-/* Make sure video container handles clicks properly */
-.video-card-container {
-    position: relative;
-}
-
-.video-card-container .project-card.video-card {
-    pointer-events: none; /* Let container handle clicks */
-}
-
-.video-card-container .project-card.video-card .play-overlay {
-    pointer-events: auto !important; /* But play button should work */
-}
-
-/* Emergency override for any conflicting styles */
-.project-card-container[data-link].video-card-container {
-    cursor: pointer !important;
-}
-
-.project-card-container[data-link].video-card-container .play-overlay:hover {
-    opacity: 1 !important;
-}
-
-/* Force video modal to be visible */
-.video-modal.active {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Make sure play button is SUPER clickable */
-.play-overlay,
-.play-overlay *,
-.play-icon,
-.fa-play {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-    z-index: 1000 !important;
-}
-
-/* Remove any conflicting pointer-events */
-.video-card-container .project-card.video-card {
-    pointer-events: none !important;
-}
-
-.video-card-container .project-card.video-card .play-overlay,
-.video-card-container .project-card.video-card .play-overlay * {
-    pointer-events: auto !important !important;
-}
-
-/* Emergency modal styles */
-#videoModal {
-    display: flex !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(0, 0, 0, 0.95) !important;
-    z-index: 999999 !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
 
